@@ -5,27 +5,33 @@ using UnityEngine;
 public class CCEvent : MonoBehaviour
 {
     Renderer rend;
-
+    
     void Start()
     {
         rend = GetComponent<Renderer>();
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+       
+    }
+
+
     private void OnTriggerEnter(Collider collider)
     {
-        SetRendererColorIfTagIsPlayer(collider, Color.green);
+        if (collider.gameObject.tag == "Player")
+        {
+            rend.material.SetColor("_Color",Color.green);
+        }
     }
 
     void OnTriggerExit(Collider collider)
     {
-        SetRendererColorIfTagIsPlayer(collider, Color.red);
-    }
-
-    private void SetRendererColorIfTagIsPlayer(Collider collider, Color color)
-    {
-        if (collider.CompareTag("Player"))
+        if (collider.gameObject.tag == "Player")
         {
-            rend.material.SetColor("_Color", color);
+            rend.material.SetColor("_Color", Color.red);
         }
     }
 }
+
